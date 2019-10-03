@@ -70,7 +70,10 @@ namespace
       int x = int( s * ( cb.w - 1 ) );
       int y = int( t * ( cb.h - 1 ) );
 
-      return cb.GetPixel( x, y );
+      // For the fold transition, we want all-opaque output
+      xlColor c = cb.GetPixel( x, y );
+      c.alpha = 0xff;
+      return c;
    }
 
    xlColor tex2D( const RenderBuffer& rb, double s, double t )
@@ -135,7 +138,7 @@ namespace
         double red   = a.red   + progress * ( b.red   - a.red   );
         double green = a.green + progress * ( b.green - a.green );
         double blue  = a.blue  + progress * ( b.blue  - a.blue  );
-        
+
         return xlColor( uint8_t( red ), uint8_t( green ), uint8_t( blue ) );
     }
 
@@ -3181,6 +3184,6 @@ bool PixelBufferClass::LayerInfo::isMasked(int x, int y) {
     return false;
 }
 
-int PixelBufferClass::GetLayerCount() const { 
-    return layers.size(); 
+int PixelBufferClass::GetLayerCount() const {
+    return layers.size();
 }
