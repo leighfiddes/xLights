@@ -255,7 +255,7 @@ namespace
       if ( uv0.x >= 0. && uv0.x < 1. && uv0.y >= 0. && uv0.y < 1. )
       {
          if ( rb1 == nullptr )
-            return tex2D( cb0, uv0.x, uv0.y );
+            return tex2D( cb0, 1-uv0.x, uv0.y );
 
          if ( progress < 0.5 )
             return tex2D( cb0, uv0.x, uv0.y );
